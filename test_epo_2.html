@@ -7,12 +7,26 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
 
 <style>
-    #graph {
-        border: 1px solid gray;
-        margin: 5px;
-        padding: 5px;
-        text-align: center;
-    }
+#graph {
+    border: 1px solid gray;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+div.tooltip {
+    position: relative;
+    text-align: center;
+    width: 150px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
 </style>
 
 <script>
@@ -63,6 +77,10 @@ $(function(){
             return linkscale(d.type);
         }
 
+        var tooltip = d3.select(container).append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
+
         const svg = d3.select(container).append('svg')
         .attr('height', height)
         .attr('width', width)
@@ -83,10 +101,26 @@ $(function(){
             .join("circle")
             .attr("r", 7)
             .attr("fill", nodecolor)
-            .call(drag(simulation));
+            .on('mouseover', function (event, d) {
+                tooltip.transition()
+                    .duration(100)
+                    .style("opacity", .9);
+                tooltip.html(d.type + "<br/>" + d.id)
+                    .style("left", (d3.pointer(event)[0]) + "px")
+                    .style("top", (d3.pointer(event)[1]) + "px");
+            })
+            .on('mouseout', function (event, d) {
+                tooltip.transition()
+                    .duration(100)
+                    .style("opacity", 0);
+            })
+            .call(drag(simulation))
+            ;
 
-        node.append("title")
-            .text(d => d.id);
+        //node;
+
+        //.append("title")
+            //.text(d => d.id);
 
         link.append('title')
             .text(d => d.type);
@@ -115,10 +149,11 @@ $(function(){
             event.subject.fy = event.y;
           }
 
-          function dragended(event) {
+          function dragended(event, d) {
             if (!event.active) simulation.alphaTarget(0);
             event.subject.fx = null;
-            event.subject.fy = null;
+            event.subject.fy = nodey(d);
+            //event.subject.fy = null;
           }
 
           return d3.drag()
@@ -137,6 +172,12 @@ $(function(){
 </head>
 <body>
 <h1>Gene Regulatory Network (Genotype to Alzheimer's Disease Phenotype) for Target Gene: EPO</h1>
+<p>This demo includes:</p>
+<ul>
+    <li>Nodes fixed to a y-position based on type</li>
+    <li>Tooltips show node type and identity</li>
+    <li>Can rearrange nodes by dragging within a row</li>
+</ul>
 <div id="graph"></div>
 
 </body>
