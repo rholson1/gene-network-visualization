@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gene Regulatory Network</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+<style>
+
+svg {
+    border: 1px solid gray;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 150px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+text.node-caption {
+    font: 10px sans-serif;
+    fill: darkblue;
+    /*stroke: white;
+    stroke-width: 0.5px;*/
+    pointer-events: none;
+}
+text.node-background {
+    font: 10px sans-serif;
+    pointer-events: none;
+}
+
+</style>
+
+<script>
+$(function(){
+    const datastr = '{"nodes": [{"": "33", "id": "Post-Mortem Interval (PMI)", "type": "pheno"}, {"": "34", "id": "Braak 6", "type": "pheno"}, {"": "51", "id": "Braak Progression", "type": "pheno"}, {"": "199", "id": "chr7", "type": "chromosome"}, {"": "206", "id": "rs547879693", "type": "SNP"}, {"": "224", "id": "EP300", "type": "TF"}, {"": "260", "id": "Post-Mortem Interval (PMI)*", "type": "pheno"}, {"": "357", "id": "SP1", "type": "TF"}, {"": "400", "id": "GATA3", "type": "TF"}, {"": "436", "id": "Braak Stage Progression*", "type": "pheno"}, {"": "437", "id": "Dementia*", "type": "pheno"}, {"": "479", "id": "Braak 6 Stage*", "type": "pheno"}, {"": "706", "id": "GATA1", "type": "TF"}, {"": "1011", "id": "rs13228694", "type": "SNP"}, {"": "1026", "id": "rs3814481", "type": "SNP"}, {"": "1028", "id": "rs11760595", "type": "SNP"}, {"": "1037", "id": "rs550521194", "type": "SNP"}, {"": "1038", "id": "rs149676605", "type": "SNP"}, {"": "1044", "id": "rs2405442", "type": "SNP"}, {"": "1046", "id": "rs4720833", "type": "SNP"}, {"": "1052", "id": "rs13236234", "type": "SNP"}, {"": "1059", "id": "rs3890492", "type": "SNP"}, {"": "1590", "id": "tan Module", "type": "module"}, {"": "1744", "id": "Moderate Stage*", "type": "pheno"}, {"": "5632", "id": "rs2525542", "type": "SNP"}, {"": "6142", "id": "ARNT", "type": "TF"}, {"": "20778", "id": "rs2525556", "type": "SNP"}, {"": "69823", "id": "EPO", "type": "gene"}, {"": "69857", "id": "EPO enhancer + 1 kbp", "type": "enhancer"}, {"": "69870", "id": "EPO enhancer + 4 kbp", "type": "enhancer"}], "links": [{"": "64163", "gene": "EPO", "type": "group", "weight": "1", "source": "EPO", "target": "tan Module"}, {"": "64164", "gene": "EPO", "type": "pheno", "weight": "1", "source": "tan Module", "target": "Post-Mortem Interval (PMI)"}, {"": "64165", "gene": "EPO", "type": "pheno", "weight": "1", "source": "tan Module", "target": "Braak Progression"}, {"": "64166", "gene": "EPO", "type": "pheno", "weight": "1", "source": "tan Module", "target": "Braak 6"}, {"": "64167", "gene": "EPO", "type": "pheno", "weight": "1", "source": "EPO", "target": "Post-Mortem Interval (PMI)*"}, {"": "64168", "gene": "EPO", "type": "pheno", "weight": "1", "source": "EPO", "target": "Moderate Stage*"}, {"": "64169", "gene": "EPO", "type": "pheno", "weight": "1", "source": "EPO", "target": "Braak Stage Progression*"}, {"": "64170", "gene": "EPO", "type": "pheno", "weight": "1", "source": "EPO", "target": "Dementia*"}, {"": "64171", "gene": "EPO", "type": "pheno", "weight": "1", "source": "EPO", "target": "Braak 6 Stage*"}, {"": "64172", "gene": "EPO", "type": "geneToTF", "weight": "1", "source": "GATA3", "target": "EPO"}, {"": "64173", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs2525556", "target": "GATA3"}, {"": "64174", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs2525556"}, {"": "64180", "gene": "EPO", "type": "geneToTF", "weight": "1", "source": "GATA1", "target": "EPO"}, {"": "64181", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs13236234", "target": "GATA1"}, {"": "64182", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs13236234"}, {"": "64183", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs2525542", "target": "GATA1"}, {"": "64184", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs2525542"}, {"": "64190", "gene": "EPO", "type": "geneToTF", "weight": "1", "source": "ARNT", "target": "EPO"}, {"": "64191", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs3890492", "target": "ARNT"}, {"": "64192", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs3890492"}, {"": "64198", "gene": "EPO", "type": "geneToTF", "weight": "1", "source": "SP1", "target": "EPO"}, {"": "64199", "gene": "EPO", "type": "EnhancerToSNP", "weight": "1", "source": "rs11760595", "target": "EPO enhancer + 1 kbp"}, {"": "64200", "gene": "EPO", "type": "TFToEnhancer", "weight": "1", "source": "EPO enhancer + 1 kbp", "target": "SP1"}, {"": "64201", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs11760595"}, {"": "64202", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs550521194", "target": "SP1"}, {"": "64203", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs550521194"}, {"": "64204", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs149676605", "target": "SP1"}, {"": "64205", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs149676605"}, {"": "64211", "gene": "EPO", "type": "geneToTF", "weight": "1", "source": "EP300", "target": "EPO"}, {"": "64212", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs3814481", "target": "EP300"}, {"": "64213", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs3814481"}, {"": "64214", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs547879693", "target": "EP300"}, {"": "64215", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs547879693"}, {"": "64216", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs2405442", "target": "EP300"}, {"": "64217", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs2405442"}, {"": "64218", "gene": "EPO", "type": "EnhancerToSNP", "weight": "1", "source": "rs13228694", "target": "EPO enhancer + 4 kbp"}, {"": "64219", "gene": "EPO", "type": "TFToEnhancer", "weight": "1", "source": "EPO enhancer + 4 kbp", "target": "EP300"}, {"": "64220", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs13228694"}, {"": "64221", "gene": "EPO", "type": "TFToSNP", "weight": "1", "source": "rs4720833", "target": "EP300"}, {"": "64222", "gene": "EPO", "type": "strongSNPToChrom", "weight": "1", "source": "chr7", "target": "rs4720833"}]}';
+    var dataobj = JSON.parse(datastr);
+
+    var node_y = {
+        chromosome: 100,
+        SNP: 150,
+        enhancer: 200,
+        TF: 250,
+        module: 400,
+        promoter: 350,
+        gene: 300,
+        pheno: 450
+    }
+
+    function drawChart(container, data) {
+        const height = 600;
+        const width = 600;
+
+        const links = data.links.map(d => Object.create(d));
+        //const nodes = data.nodes.map(d => Object.create(d));
+        const nodes = data.nodes.map(function(d) {
+            obj = Object.create(d);
+            obj.fy = nodey(obj);
+            obj.label_offset = d3.randomInt(-20, 20)();
+            return obj;
+        });
+
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id))
+            .force("charge", d3.forceManyBody())
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force('collide', d3.forceCollide(20))
+        ;
+
+        // color nodes by type
+        const nodescale = d3.scaleOrdinal(d3.schemeCategory10);
+        function nodecolor(d) {
+            return nodescale(d.type);  // was d.group
+        }
+
+        function nodey(d) {
+            return node_y[d.type];
+        }
+
+        // color links by type
+        const linkscale = d3.scaleOrdinal(d3.schemeCategory10);
+        function linkcolor(d) {
+            return linkscale(d.type);
+        }
+
+        const tooltip = d3.select(container).append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
+
+        const svg = d3.select(container).append('svg')
+        .attr('height', height)
+        .attr('width', width);
+
+        const link = svg.append("g")
+            .attr("stroke-opacity", 0.6)
+            .selectAll("line")
+            .data(links)
+            .join("line")
+            .attr("stroke", linkcolor)  // was #999
+            .attr("stroke-width", 3);  // was d => Math.sqrt(d.value)
+
+        link.append('title')
+            .text(d => d.type);
+
+        const node = svg.append("g")
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 1.5)
+            .selectAll("circle")
+            .data(nodes)
+            .join("circle")
+            .attr("r", 9)
+            .attr("fill", nodecolor)
+            .on('mouseover', function (event, d) {
+                tooltip.transition()
+                    .duration(100)
+                    .style("opacity", .9);
+                tooltip.html(d.type + "<br/>" + d.id)
+                    .style("left", (parseInt(d3.select(this).attr('cx')) + document.getElementById('graph').offsetLeft) + "px")
+                    .style("top", (parseInt(d3.select(this).attr('cy')) + document.getElementById('graph').offsetTop) + "px");
+                //  .style("left", (d3.pointer(event)[0]) + "px")
+                //    .style("top", (d3.pointer(event)[1]) + "px");
+            })
+            .on('mouseout', function (event, d) {
+                tooltip.transition()
+                    .duration(100)
+                    .style("opacity", 0);
+            });
+
+        const text = svg.selectAll('text')
+            .data(nodes)
+            .join('text')
+            .text(d => d.id)
+            .attr('class', 'node-caption')
+        ;
+
+        const text2 = text.clone(true)
+        .attr('class', 'node-background')
+        .attr('fill', 'none')
+        .attr('stroke', 'white')
+        .attr('stroke-width', 3)
+        .attr('stroke-opacity', 0.8);
+
+        text.raise();  // bring the labels to the foreground (over label background)
+
+        node.call(drag(simulation));
+
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y);
+
+            text
+                .attr('x', d => d.x)
+                //.attr('y', d => d.y + d.label_offset);
+                .attr('y', d => d.y + label_offset(d.x, d.y));
+            text2
+                .attr('x', d => d.x)
+                .attr('y', d => d.y + label_offset(d.x, d.y));
+        });
+
+        function label_offset(x, y) {
+            // given position, compute offset based on angular position
+            //let angle = Math.atan2(y - height / 2, x - width / 2);
+
+            // actually, no need to involve y
+            let angle = x / width;  // between 0 and 1
+
+            let offset = Math.sin(angle * 6 * 4)
+
+            return offset * 20;
+        }
+
+        function drag(simulation) {
+          function dragstarted(event) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            event.subject.fx = event.subject.x;
+            event.subject.fy = event.subject.y;
+          }
+
+          function dragged(event) {
+            event.subject.fx = event.x;
+            event.subject.fy = event.y;
+          }
+
+          function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            event.subject.fx = null;
+            event.subject.fy = nodey(d);
+            //event.subject.fy = null;
+          }
+
+          return d3.drag()
+              .on("start", dragstarted)
+              .on("drag", dragged)
+              .on("end", dragended);
+        }
+
+    }
+
+    drawChart('#graph', dataobj);
+
+});
+</script>
+
+</head>
+<body>
+<h1>Gene Regulatory Network (Genotype to Alzheimer's Disease Phenotype) for Target Gene: EPO</h1>
+<p>This demo includes:</p>
+<ul>
+    <li>Nodes fixed to a y-position based on type</li>
+    <li>Tooltips show node type and identity</li>
+    <li>Can rearrange nodes by dragging within a row</li>
+    <li>Node labels with translucent background and y-offset based on position</li>
+</ul>
+<div id="graph"></div>
+
+</body>
+</html>
