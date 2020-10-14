@@ -1,0 +1,1 @@
+{"nodes": [{"": "16", "id": "orange Module", "type": "module"}, {"": "17", "id": "NONE", "type": "pheno"}, {"": "43435", "id": "DENR", "type": "gene"}], "links": [{"": "39770", "gene": "DENR", "type": "group", "weight": "1", "source": "DENR", "target": "orange Module"}, {"": "39771", "gene": "DENR", "type": "pheno", "weight": "1", "source": "orange Module", "target": "NONE"}]}

@@ -1,0 +1,1 @@
+{"nodes": [{"": "17", "id": "NONE", "type": "pheno"}, {"": "99", "id": "white Module", "type": "module"}, {"": "5291", "id": "NPM1", "type": "gene"}], "links": [{"": "4722", "gene": "NPM1", "type": "group", "weight": "1", "source": "NPM1", "target": "white Module"}, {"": "4723", "gene": "NPM1", "type": "pheno", "weight": "1", "source": "white Module", "target": "NONE"}]}

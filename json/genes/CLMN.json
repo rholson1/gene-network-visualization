@@ -1,0 +1,1 @@
+{"nodes": [{"": "17", "id": "NONE", "type": "pheno"}, {"": "21", "id": "cyan Module", "type": "module"}, {"": "52830", "id": "CLMN", "type": "gene"}], "links": [{"": "48839", "gene": "CLMN", "type": "group", "weight": "1", "source": "CLMN", "target": "cyan Module"}, {"": "48840", "gene": "CLMN", "type": "pheno", "weight": "1", "source": "cyan Module", "target": "NONE"}]}

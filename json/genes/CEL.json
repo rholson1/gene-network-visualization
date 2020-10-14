@@ -1,0 +1,1 @@
+{"nodes": [{"": "17", "id": "NONE", "type": "pheno"}, {"": "246", "id": "darkred Module", "type": "module"}, {"": "59444", "id": "CEL", "type": "gene"}], "links": [{"": "54968", "gene": "CEL", "type": "group", "weight": "1", "source": "CEL", "target": "darkred Module"}, {"": "54969", "gene": "CEL", "type": "pheno", "weight": "1", "source": "darkred Module", "target": "NONE"}]}

@@ -1,0 +1,1 @@
+{"nodes": [{"": "4", "id": "Braak 3", "type": "pheno"}, {"": "489", "id": "red Module", "type": "module"}, {"": "491", "id": "CPSF6", "type": "gene"}], "links": [{"": "438", "gene": "CPSF6", "type": "group", "weight": "1", "source": "CPSF6", "target": "red Module"}, {"": "439", "gene": "CPSF6", "type": "pheno", "weight": "1", "source": "red Module", "target": "Braak 3"}]}

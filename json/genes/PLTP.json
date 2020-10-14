@@ -1,0 +1,1 @@
+{"nodes": [{"": "17", "id": "NONE", "type": "pheno"}, {"": "99", "id": "white Module", "type": "module"}, {"": "50538", "id": "PLTP", "type": "gene"}], "links": [{"": "46684", "gene": "PLTP", "type": "group", "weight": "1", "source": "PLTP", "target": "white Module"}, {"": "46685", "gene": "PLTP", "type": "pheno", "weight": "1", "source": "white Module", "target": "NONE"}]}

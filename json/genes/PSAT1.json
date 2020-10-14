@@ -1,0 +1,1 @@
+{"nodes": [{"": "17", "id": "NONE", "type": "pheno"}, {"": "99", "id": "white Module", "type": "module"}, {"": "62898", "id": "PSAT1", "type": "gene"}], "links": [{"": "58034", "gene": "PSAT1", "type": "group", "weight": "1", "source": "PSAT1", "target": "white Module"}, {"": "58035", "gene": "PSAT1", "type": "pheno", "weight": "1", "source": "white Module", "target": "NONE"}]}

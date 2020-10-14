@@ -1,0 +1,1 @@
+{"nodes": [{"": "17", "id": "NONE", "type": "pheno"}, {"": "2003", "id": "darkgrey Module", "type": "module"}, {"": "80318", "id": "TF", "type": "gene"}], "links": [{"": "74050", "gene": "TF", "type": "group", "weight": "1", "source": "TF", "target": "darkgrey Module"}, {"": "74051", "gene": "TF", "type": "pheno", "weight": "1", "source": "darkgrey Module", "target": "NONE"}]}

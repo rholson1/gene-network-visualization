@@ -1,0 +1,1 @@
+{"nodes": [{"": "17", "id": "NONE", "type": "pheno"}, {"": "246", "id": "darkred Module", "type": "module"}, {"": "2943", "id": "MZF1", "type": "TF"}], "links": [{"": "67515", "gene": "MZF1", "type": "group", "weight": "1", "source": "MZF1", "target": "darkred Module"}, {"": "67516", "gene": "MZF1", "type": "pheno", "weight": "1", "source": "darkred Module", "target": "NONE"}]}

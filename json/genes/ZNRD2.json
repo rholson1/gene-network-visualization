@@ -1,0 +1,1 @@
+{"nodes": [{"": "4", "id": "Braak 3", "type": "pheno"}, {"": "489", "id": "red Module", "type": "module"}, {"": "58765", "id": "ZNRD2", "type": "gene"}], "links": [{"": "54455", "gene": "ZNRD2", "type": "group", "weight": "1", "source": "ZNRD2", "target": "red Module"}, {"": "54456", "gene": "ZNRD2", "type": "pheno", "weight": "1", "source": "red Module", "target": "Braak 3"}]}

@@ -1,0 +1,1 @@
+{"nodes": [{"": "17", "id": "NONE", "type": "pheno"}, {"": "99", "id": "white Module", "type": "module"}, {"": "3957", "id": "TFCP2", "type": "TF"}], "links": [{"": "54942", "gene": "TFCP2", "type": "group", "weight": "1", "source": "TFCP2", "target": "white Module"}, {"": "54943", "gene": "TFCP2", "type": "pheno", "weight": "1", "source": "white Module", "target": "NONE"}]}

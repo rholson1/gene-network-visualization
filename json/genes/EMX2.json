@@ -1,0 +1,1 @@
+{"nodes": [{"": "17", "id": "NONE", "type": "pheno"}, {"": "140", "id": "skyblue Module", "type": "module"}, {"": "4212", "id": "EMX2", "type": "TF"}], "links": [{"": "17819", "gene": "EMX2", "type": "group", "weight": "1", "source": "EMX2", "target": "skyblue Module"}, {"": "17820", "gene": "EMX2", "type": "pheno", "weight": "1", "source": "skyblue Module", "target": "NONE"}]}
